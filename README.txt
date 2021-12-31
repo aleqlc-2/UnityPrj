@@ -1,1 +1,0 @@
-SpaceShip_Advanced는 상태패턴, 오브젝트풀링을 적용해 만든 2D게임입니다.
