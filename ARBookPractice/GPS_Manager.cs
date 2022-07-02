@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GPS_Manager : MonoBehaviour
 {
+    public static GPS_Manager instance;
+
     public Text latitude_text;
     public Text longitude_text;
 
@@ -16,9 +18,15 @@ public class GPS_Manager : MonoBehaviour
     private float waitTime = 0f; // 현재 경과된 대기시간
 
     public float resendTime = 1.0f;
-    private bool receiveGPS = false;
+    public bool receiveGPS = false;
 
-    void Start()
+	void Awake()
+	{
+        if (instance == null)
+            instance = this;
+	}
+
+	void Start()
     {
         StartCoroutine(GPS_On());
     }

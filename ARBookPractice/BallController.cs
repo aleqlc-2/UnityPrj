@@ -29,8 +29,15 @@ public class BallController : MonoBehaviour
 
         float draw = Random.Range(0, 1.0f);
 
-        if (draw <= captureRate) result.text = "포획 성공!";
-        else result.text = "포획에 실패해 도망쳤습니다...";
+        if (draw <= captureRate)
+        {
+            result.text = "포획 성공!";
+
+            // DB에 저장된 상태를 포획된 상태로 저장
+            DB_Manager.instance.UpdateCaptured();
+        }
+        else
+            result.text = "포획에 실패해 도망쳤습니다...";
 
         // 포획했든 못했든 맞췄으면 파티클생성
         Instantiate(effect, collision.transform.position, Camera.main.transform.rotation);

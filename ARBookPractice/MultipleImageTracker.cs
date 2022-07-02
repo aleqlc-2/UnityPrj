@@ -13,6 +13,8 @@ public class MultipleImageTracker : MonoBehaviour
 
         // 이미지 인식 델리게이트에 실행될 함수를 연결
         imageManager.trackedImagesChanged += OnTrackedImage;
+
+        StartCoroutine(TurnOnImageTracking());
     }
 
     public void OnTrackedImage(ARTrackedImagesChangedEventArgs args)
@@ -35,6 +37,13 @@ public class MultipleImageTracker : MonoBehaviour
                     go.transform.SetParent(trackedImage.transform);
                 }
 			}
+
+            // Firebase 관련
+            // 자신의 현재 위치좌표를 벡터형태로 변환한다.
+            Vector2 myPos = new Vector2(GPS_Manager.instance.latitude, GPS_Manager.instance.longitude);
+
+            // DB검색 및 프리펩 생성 코루틴함수를 실행
+            StartCoroutine(DB_Manager.instance.LoadData(myPos, trackedImage.transform));
 		}
 
 		foreach (ARTrackedImage trackedImage in args.updated)
@@ -47,5 +56,21 @@ public class MultipleImageTracker : MonoBehaviour
                 trackedImage.transform.GetChild(0).rotation = trackedImage.transform.rotation;
 			}
 		}
+	}
+
+    public IEnumerator TurnOnImageTracking()
+	{
+        imageManager.enabled = false;
+
+        // 위치정보가 수신될 때까지 대기한다.
+        while (!GPS_Manager.instance.receiveGPS)
+		{
+            yield return null;
+		}
+
+        imageManager.enabled = true;
+
+        // 이미지 인식 델리게이트에 실행될 함수를 연결한다
+        imageManager.trackedImagesChanged += OnTrackedImage;
 	}
 }
