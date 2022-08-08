@@ -35,17 +35,17 @@ public class App : MonoBehaviour
 		//}));
 
 		// // 서버에 있는 에셋번들 바이너리화 없이 바로 가져옴
-		//StartCoroutine(AssetManager.instance.LoadFromServer("C:\\Users\\TAESUNG SNI\\Desktop\\NodeToUnity\\AssetBundles\\building"));
+		//StartCoroutine(AssetManager.instance.LoadFromServer("C:\\Users\\Desktop\\NodeToUnity\\AssetBundles\\building"));
 
 		//// 서버에 있는 에셋번들 바이너리화하여 가져와서 로컬저장소에 write, PC
-		//StartCoroutine(AssetManager.instance.LoadFromServer("C:\\Users\\TAESUNG SNI\\Desktop\\NodeToUnity\\AssetBundles", "building"));
+		//StartCoroutine(AssetManager.instance.LoadFromServer("C:\\Users\\Desktop\\NodeToUnity\\AssetBundles", "building"));
 
 		// 서버에 있는 에셋번들 바이너리화하여 가져와서 로컬저장소에 write
 		if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageWrite))
 		{
 			Permission.RequestUserPermission(Permission.ExternalStorageWrite);
 		}
-		StartCoroutine(AssetManager.instance.LoadFromServer("C:\\Users\\TAESUNG SNI\\Desktop\\NodeToUnity\\AssetBundles", "building"));
+		StartCoroutine(AssetManager.instance.LoadFromServer("C:\\Users\\Desktop\\NodeToUnity\\AssetBundles", "building"));
 	}
 
     public void LoadAsset()

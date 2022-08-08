@@ -9,11 +9,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class FtpManager : MonoBehaviour
 {
-    private string ftpPath = "ftp://cjh@127.0.0.1/";
-    private string fileName = "FromUnityFbx.fbx"; // 업로드할시 새로 생성할 파일명, 만약 이미 있는이름이면 덮어씌어짐
-    private string userName = "cjh";
-    private string pwd = "jhwanchoi*1";
-    private string UploadDirectory = "UploadTest";
+    private string ftpPath = "ftp://jhchoi@127.0.0.1/";
+    private string fileName = "FromUnityFbx1.fbx"; // 업로드할시 새로 생성할 파일명, 만약 이미 있는이름이면 덮어씌어짐
+    private string userName = "jhchoi";
+    private string pwd = "fgftd4";
+    private string UploadDirectory = "UploadTest1";
 
 	private void Start()
 	{
@@ -55,11 +55,11 @@ public class FtpManager : MonoBehaviour
     // 폴더만들기
     private void FtpMakeFolder()
     {
-        string user = "cjh";
-        string pwd = "jhwanchoi*1";
+        string userName = "jhchoi";
+        string pwd = "fgftd4";
         string folderName = "testFolder"; // 새로만들 폴더이름
 
-        FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://cjh@127.0.0.1/UploadTest/test.txt/" + folderName);
+        FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://jhchoi@127.0.0.1/UploadTest1/test.txt/" + folderName);
         request.Credentials = new NetworkCredential(user, pwd);
         request.UsePassive = true;
         request.UseBinary = true;
@@ -100,7 +100,7 @@ public class FtpManager : MonoBehaviour
         req.UseBinary = true;
         req.UsePassive = true;
 
-        byte[] data = File.ReadAllBytes(@"C:\Users\TAESUNG SNI\Desktop\ConvertResult\202_84A_Type_skp_d.txt"); // ftp서버로 업로드할 로컬파일주소
+        byte[] data = File.ReadAllBytes(@"C:\Users\Desktop\ConvertResult\202_84A_Type_skp_d.txt"); // ftp서버로 업로드할 로컬파일주소
         req.ContentLength = data.Length;
         Stream stream = req.GetRequestStream();
         stream.Write(data, 0, data.Length);
@@ -113,7 +113,7 @@ public class FtpManager : MonoBehaviour
     // 파일다운로드(ftp -> 로컬pc)
     private void FtpDownload()
     {
-        FtpWebRequest ftpWebRequest = (FtpWebRequest)WebRequest.Create("ftp://cjh@127.0.0.1/UploadTest/fbxToTxt.txt"); // ftp서버내의 다운로드대상 파일주소
+        FtpWebRequest ftpWebRequest = (FtpWebRequest)WebRequest.Create("ftp://jhchoi@127.0.0.1/UploadTest1/fbxToTxt.txt"); // ftp서버내의 다운로드대상 파일주소
         ftpWebRequest.Credentials = new NetworkCredential(userName, pwd);
         ftpWebRequest.Method = WebRequestMethods.Ftp.DownloadFile;
 

@@ -10,7 +10,6 @@ public class FileConverter : MonoBehaviour
 	private string host = "211.248.99.88";
 	private string port = "21";
 
-
 	void Start()
     {
 		// File.Create("Assets/Resources/NewFile.txt");
@@ -24,8 +23,8 @@ public class FileConverter : MonoBehaviour
     {
 		if (Input.GetKeyDown(KeyCode.K))
 		{
-			//string myFile = "C:\\Users\\TAESUNG SNI\\Desktop\\ConvertResult\\202_84A_Type_skp_d555.txt";
-			//string newFile = "C:\\Users\\TAESUNG SNI\\Desktop\\ConvertResult\\202_84A_Type_skp_d555.fbx";
+			//string myFile = "C:\\Users\\Desktop\\ConvertResult\\202_84A_Type_skp_d555.txt";
+			//string newFile = "C:\\Users\\Desktop\\ConvertResult\\202_84A_Type_skp_d555.fbx";
 
 			string myFile = "Assets/Resources/202FileConvertTest.txt";
 			string newFile = "Assets/Resources/202FileConvertTest.fbx";
