@@ -1,0 +1,44 @@
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using static Controls;
+
+[CreateAssetMenu(fileName = "New Input Reader", menuName = "Input/Input Reader")]
+public class InputReader : ScriptableObject, IPlayerActions // using static Controls; <- Input Action Asset만들어서 c# generate 체크해서 만든 스크립트
+{
+	public event Action<Vector2> MoveEvent;
+	public event Action<bool> PrimaryFireEvent;
+
+	public Vector2 AimPosition { get;private set; }
+	
+	private Controls controls;
+
+	private void OnEnable()
+	{
+		if (controls == null)
+		{
+			controls = new Controls();
+			controls.Player.SetCallbacks(this);
+		}
+
+		controls.Player.Enable();
+	}
+
+	public void OnMove(InputAction.CallbackContext context)
+	{
+		MoveEvent?.Invoke(context.ReadValue<Vector2>());
+	}
+
+	public void OnPrimaryFire(InputAction.CallbackContext context)
+	{
+		if (context.performed)
+			PrimaryFireEvent?.Invoke(true);
+		else if (context.canceled)
+			PrimaryFireEvent?.Invoke(false);
+	}
+
+	public void OnAim(InputAction.CallbackContext context)
+	{
+		AimPosition = context.ReadValue<Vector2>();
+	}
+}

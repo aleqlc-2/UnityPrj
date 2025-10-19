@@ -1,0 +1,49 @@
+using Photon.Pun;
+using UnityEngine;
+
+public class PlayerSelection : MonoBehaviour
+{
+    public GameObject[] SelectablePlayers;
+    public int playerSelectionNumber;
+
+	private void Start()
+	{
+        playerSelectionNumber = 0;
+        ActivatePlayer(playerSelectionNumber);
+	}
+
+    private void ActivatePlayer(int x)
+    {
+        foreach (GameObject selectablePlayer in SelectablePlayers)
+        {
+            selectablePlayer.SetActive(false);
+		}
+
+		SelectablePlayers[x].SetActive(true);
+
+        ExitGames.Client.Photon.Hashtable playerSelectionProp = new ExitGames.Client.Photon.Hashtable() { { MultiplayerRacingGame.PLYAER_SELECTION_NUMBER, playerSelectionNumber } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
+	}
+
+	public void NextPlayer()
+    {
+        playerSelectionNumber += 1;
+        if (playerSelectionNumber >= SelectablePlayers.Length)
+        {
+            playerSelectionNumber = 0;
+        }
+
+        ActivatePlayer(playerSelectionNumber);
+    }
+
+    public void PreviousPlayer()
+    {
+        playerSelectionNumber -= 1;
+        if (playerSelectionNumber < 0)
+        {
+            playerSelectionNumber = SelectablePlayers.Length - 1;
+        }
+
+        ActivatePlayer(playerSelectionNumber);
+    }
+}
